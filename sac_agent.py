@@ -1,4 +1,3 @@
-#%%
 import torch
 import torch.nn as nn
 import numpy as np
@@ -204,36 +203,3 @@ class Agent(nn.Module):
                     self.writer.add_scalars('Alpha/alpha', alpha_dict, self.total_step)
 
                 ts = []
-
-# import gym
-# max_episode_num = 30000
-# env = gym.make('Humanoid-v2')
-
-# GPU_NUM = 0
-# device = torch.device(f'cuda:{GPU_NUM}' if torch.cuda.is_available() else 'cpu')
-
-# is_train = False
-# # is_train = True
-
-# if is_train is True:
-#     agent = Agent(env, device)
-#     agent.train(max_episode_num=max_episode_num, max_time=5000)
-# else:
-#     agent2 = Agent(env, device, write_mode=False)
-#     agent2.load_model()
-#     avg_episode_reward = 0.
-#     num_test = 5
-#     episode_rewards = []
-#     for _ in range(num_test):    
-#         state = env.reset()
-#         episode_reward = 0.
-#         for _ in range(10000):
-#             action = agent2.actor.get_action(torch.tensor([state]).to(device).float(), stochastic=False)
-#             env.render()         
-#             state, reward, done, _ = env.step(action)
-#             episode_reward += reward
-#             if done:
-#                 break 
-#         episode_rewards.append(episode_reward)
-
-#     print('avg_episode_reward : ', np.mean(episode_rewards))

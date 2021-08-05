@@ -1,4 +1,3 @@
-#%%
 import torch
 import torch.nn as nn
 import numpy as np
@@ -58,12 +57,3 @@ class Critic(nn.Module):
         self.optimizer.step()
         
         return loss.item()
-
-    
-#%%
-import numpy as np
-import torch
-a = torch.zeros((4,3))
-b = [a for _ in range(100)]
-c = torch.stack(b, dim=0)
-c.shape
