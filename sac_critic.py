@@ -36,8 +36,6 @@ class Critic(nn.Module):
 
 
     def forward(self, state, action):
-        # state = torch.tensor(state).to(self.device).float()
-        # action = torch.tensor(action).to(self.device).float()
         
         x = torch.cat([state, action], dim=-1)
         x = self.activation(self.first_layer(x))

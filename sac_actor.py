@@ -47,11 +47,6 @@ class Actor(nn.Module):
         for linear_layer in self.layer_intermediate:
             x = self.relu(linear_layer(x))
 
-        # mu = self.k*self.mu_layer(x)
-        # mu = torch.clip(mu, self.action_bound[0], self.action_bound[1])
-        # log_std = torch.clip(self.log_std_layer(x), min=-20, max=1.5)
-        # std = torch.exp(log_std)
-
         x = self.mu_log_std_layer(x)
         mu, log_std = x[:, :self.action_dim], torch.clamp(x[:, self.action_dim:], -20, 2)
         std = torch.exp(log_std)
@@ -71,7 +66,6 @@ class Actor(nn.Module):
         log_prob = gaussian_log_prob - torch.log(self.k*(1-(action/self.k)**2 + 1e-6)).sum(dim=-1, keepdim=True) # (batch,)
 
         if not stochstic:
-            # action = np.clip(mu.detach().cpu().numpy(), self.action_bound[0], self.action_bound[1])
             action = mu.detach().cpu().numpy() * self.k
 
         return action, log_prob  
@@ -88,7 +82,6 @@ class Actor(nn.Module):
         action = self.k * torch.tanh(u)
 
         if not stochastic:
-            # action = np.clip(mu.detach().cpu().numpy(), self.action_bound[0], self.action_bound[1])
             action = mu.detach().cpu().numpy() * self.k
 
         return action      
